@@ -15,12 +15,14 @@ public class Militar
   //Categorias: 1 - Oficial, 2 - Sargento, 3 - Praça;
   private int categoria;
   private int tempo;
+  private int tempoDeEspera;
   
   public Militar(int numero, int categoria)
   {
     setNumero(numero);
     setCategoria(categoria);
     setTempo(categoria);
+    this.tempoDeEspera = 0;
   }
 
   public int getTempo()
@@ -52,6 +54,8 @@ public class Militar
   {
     this.numero = numero;
     this.categoria = 3;
+    setTempo(3);
+    this.tempoDeEspera = 0;
   }
 
   public int getNumero()
@@ -87,6 +91,16 @@ public class Militar
     {
       this.categoria = categoria;
     }
+  }
+
+  public int getTempoDeEspera()
+  {
+    return tempoDeEspera;
+  }
+  
+  public void aumentaTempoDeEspera(int tempo)
+  {
+    this.tempoDeEspera += tempo;
   }
   
 }
