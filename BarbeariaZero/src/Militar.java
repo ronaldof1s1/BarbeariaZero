@@ -3,21 +3,49 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+import java.util.Random;
 /**
  *
  * @author ronaldofs
  */
+
 public class Militar
 {
   private int numero;
-  //categorias: 1 - oficial, 2 - sargento, 3 - praça;
+  //Categorias: 1 - Oficial, 2 - Sargento, 3 - Praça;
   private int categoria;
-
+  private int tempo;
+  
   public Militar(int numero, int categoria)
   {
-    this.numero = numero;
-    this.categoria = categoria;
+    setNumero(numero);
+    setCategoria(categoria);
+    setTempo(categoria);
+  }
+
+  public int getTempo()
+  {
+    return tempo;
+  }
+
+  public void setTempo(int categoria)
+  {
+    Random rand = new Random();
+    this.tempo = rand.nextInt() % 3;
+    switch(categoria)
+    {
+      case 1: 
+        this.tempo += 4;
+        break;
+      case 2:
+        this.tempo += 2;
+        break;
+      case 3:
+        this.tempo += 1;
+        break;
+      default:
+        System.out.println("Categoria inválida");
+    }
   }
 
   public Militar(int numero)
