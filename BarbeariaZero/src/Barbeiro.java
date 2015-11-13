@@ -18,6 +18,32 @@ public class Barbeiro implements Runnable
   //Categorias: 1 - Oficial, 2 - Sargento, 3 - Praça;
   private int categoria; 
   private Militar m;
+
+  public Barbeiro(int categoria)
+  {
+    this.categoria = categoria;
+  }
+
+  public int getCategoria()
+  {
+    return categoria;
+  }
+
+  public void setCategoria(int categoria)
+  {
+    this.categoria = categoria;
+  }
+
+  public Militar getM()
+  {
+    return m;
+  }
+
+  public void setM(Militar m)
+  {
+    this.m = m;
+  }
+  
   private void cut()
   {
     try
