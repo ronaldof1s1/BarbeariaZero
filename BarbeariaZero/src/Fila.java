@@ -49,7 +49,7 @@ public class Fila
   }
   
   
-  public  void AddMilitar(Militar m)
+  public void push(Militar m)
   {
     if(Barbearia.totalSize < 20)
     {
