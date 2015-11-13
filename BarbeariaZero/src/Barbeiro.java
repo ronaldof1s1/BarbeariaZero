@@ -17,12 +17,12 @@ public class Barbeiro implements Runnable
 {
   //Categorias: 1 - Oficial, 2 - Sargento, 3 - Praça;
   private int categoria; 
-  
-  private void cut(Militar M)
+  private Militar m;
+  private void cut()
   {
     try
     {
-      Thread.sleep(M.getTempo());
+      Thread.sleep(m.getTempo()*100);
     }
     catch (InterruptedException ex)
     {
@@ -30,9 +30,88 @@ public class Barbeiro implements Runnable
     }
   }
   
+  private void call() throws InterruptedException
+  {
+    while(true)
+    {
+      switch(categoria)
+      {
+        case 1: 
+          if(!Barbearia.oficiais.getQueue().isEmpty())
+          {
+            this.m = Barbearia.oficiais.poll();
+          }
+          else if(!Barbearia.sargentos.getQueue().isEmpty())
+          {
+            this.m = Barbearia.sargentos.poll();
+          }
+          else if(!Barbearia.pracas.getQueue().isEmpty())
+          {
+            this.m = Barbearia.pracas.poll();
+          }
+          else
+          {
+            continue;
+          }
+          break;
+        case 2: 
+          if(!Barbearia.sargentos.getQueue().isEmpty())
+          {
+            this.m = Barbearia.sargentos.poll();
+          }
+          else if(!Barbearia.oficiais.getQueue().isEmpty())
+          {
+            this.m = Barbearia.oficiais.poll();
+          }
+          else if(!Barbearia.pracas.getQueue().isEmpty())
+          {
+            this.m = Barbearia.pracas.poll();
+          }
+          else
+          {
+            Thread.sleep(500);
+            continue;
+          }
+          break;
+        case 3:
+          if(!Barbearia.pracas.getQueue().isEmpty())
+          {
+            this.m = Barbearia.pracas.poll();
+          }
+          else if(!Barbearia.oficiais.getQueue().isEmpty())
+          {
+            this.m = Barbearia.oficiais.poll();
+          }
+          else if(!Barbearia.sargentos.getQueue().isEmpty())
+          {
+            this.m = Barbearia.sargentos.poll();
+          }
+          else
+          {
+            Thread.sleep(500);
+            continue;
+          }
+          break;
+        }
+      break;
+      }
+  }
+  
   @Override
   public void run()
   {
-    
+    while(true)
+    {
+      try
+      {
+        call();
+      }
+      catch (InterruptedException ex)
+      {
+        Logger.getLogger(Barbeiro.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      
+      cut();
+    }
   }
 }
