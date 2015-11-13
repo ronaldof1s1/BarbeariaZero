@@ -23,6 +23,7 @@ public class Barbeiro implements Runnable
     try
     {
       Thread.sleep(m.getTempo()*100);
+      this.m = null;
     }
     catch (InterruptedException ex)
     {
@@ -51,6 +52,7 @@ public class Barbeiro implements Runnable
           }
           else
           {
+            Thread.sleep((int)Math.random() % 500);
             continue;
           }
           break;
@@ -69,7 +71,7 @@ public class Barbeiro implements Runnable
           }
           else
           {
-            Thread.sleep(500);
+            Thread.sleep((int)Math.random() % 500);
             continue;
           }
           break;
@@ -88,7 +90,7 @@ public class Barbeiro implements Runnable
           }
           else
           {
-            Thread.sleep(500);
+            Thread.sleep((int)Math.random() % 500);
             continue;
           }
           break;
