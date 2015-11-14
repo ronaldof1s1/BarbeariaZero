@@ -16,7 +16,7 @@ public class Militar
   private int categoria;
   private int tempo;
   private int tempoDeEspera;
-  
+
   public Militar(int numero, int categoria)
   {
     setNumero(numero);
@@ -97,10 +97,10 @@ public class Militar
   {
     return tempoDeEspera;
   }
-  
+
   public void aumentaTempoDeEspera(int tempo)
   {
     this.tempoDeEspera += tempo;
   }
-  
+
 }

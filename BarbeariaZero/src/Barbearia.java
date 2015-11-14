@@ -12,6 +12,7 @@ public class Barbearia
 {
   
   public static int totalSize;
+  public static int bostanenhuma;
   
   public static void main(String args[]) throws InterruptedException
   {
