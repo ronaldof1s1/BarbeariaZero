@@ -14,22 +14,30 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class Fila
 {
   
-  public  void AddMilitar(Militar m,  ConcurrentLinkedQueue<Militar> q1)
+  ConcurrentLinkedQueue<Militar> queue;
+  private int categoria;
+
+  public Fila(int categoria)
   {
-    if(Barbearia.totalSize < 20)
-    {
-      q1.add(m);
-      Barbearia.totalSize += 1;
-    }
+    this.categoria = categoria;
+    queue = new ConcurrentLinkedQueue<>();
+  }
+
+  public int getCategoria()
+  {
+    return categoria;
+  }
+
+  public void setCategoria(int categoria)
+  {
+    this.categoria = categoria;
   }
   
-  ConcurrentLinkedQueue<Militar> queue;
-   
   public ConcurrentLinkedQueue<Militar> getQueue()
   {
     return queue;
   }
-
+  
   public void setQueue(ConcurrentLinkedQueue<Militar> queue)
   {
     this.queue = queue;
@@ -39,9 +47,22 @@ public class Fila
   {
     return queue.size();
   }
-
   
-   
-   
-   
+  
+  public void push(Militar m)
+  {
+    if(Barbearia.totalSize < 20)
+    {
+      queue.add(m);
+      Barbearia.totalSize += 1;
+    }
+  }
+  
+  public Militar poll()
+  {
+    Barbearia.totalSize -= 1;
+    return queue.poll();
+  }
+  
+  
 }
