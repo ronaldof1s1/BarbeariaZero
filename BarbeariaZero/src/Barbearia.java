@@ -21,11 +21,15 @@ public class Barbearia
   public static Barbeiro b3;
   
   
+  
   public static void main(String args[]) throws InterruptedException
   {
     oficiais = new Fila(1);
     sargentos = new Fila(2);
     pracas = new Fila(3);
+    b1 = new Barbeiro(1);
+    b2 = new Barbeiro(2);
+    b3 = new Barbeiro(3);
     
     
     System.out.println("OI");
