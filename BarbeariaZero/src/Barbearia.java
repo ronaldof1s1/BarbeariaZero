@@ -11,15 +11,20 @@ import java.lang.Thread;
 public class Barbearia
 {
   
-  public static int totalSize;
-  public static int bostanenhuma;
-  
+  public static int totalSize; // Número de pessoas esperando dentro da barbearia
+  public static int rejected;  // Número de pessoas que não puderam entrar na barbearia
+
+  public static int oficiais_atendidos;  // Número de oficiais atendidos
+  public static int sargentos_atendidos; // Número de sargentos atendidos
+  public static int pracas_atendidos; 	 // Número de praças atendidos
+
   public static Fila oficiais;
   public static Fila sargentos;
   public static Fila pracas;
-  public static Barbeiro b1;
-  public static Barbeiro b2;
-  public static Barbeiro b3;
+
+  public static Barbeiro barbeiro_oficial;
+  public static Barbeiro barbeiro_sargento;
+  public static Barbeiro barbeiro_praca;
   
   
   
@@ -28,9 +33,10 @@ public class Barbearia
     oficiais = new Fila(1);
     sargentos = new Fila(2);
     pracas = new Fila(3);
-    b1 = new Barbeiro(1);
-    b2 = new Barbeiro(2);
-    b3 = new Barbeiro(3);
+
+    barbeiro_oficial = new Barbeiro(1);
+    barbeiro_sargento = new Barbeiro(2);
+    barbeiro_praca = new Barbeiro(3);
     
     
     System.out.println("OI");
