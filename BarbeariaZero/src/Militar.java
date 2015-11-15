@@ -17,13 +17,13 @@ public class Militar
   private int tempo; // duration of the haircut
   private int tempoDeEspera;
 
-  public Militar(int numero, int categoria)
+  /*public Militar(int numero, int categoria)
   {
     setNumero(numero);
     setCategoria(categoria);
     setTempo(categoria);
     this.tempoDeEspera = 0;
-  }
+  }*/
 
   public Militar(int categoria, int tempo)
   {
