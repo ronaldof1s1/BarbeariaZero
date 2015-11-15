@@ -14,7 +14,7 @@ public class Militar
   private int numero;
   //Categorias: 1 - Oficial, 2 - Sargento, 3 - Praça;
   private int categoria;
-  private int tempo;
+  private int tempo; // duration of the haircut
   private int tempoDeEspera;
 
   public Militar(int numero, int categoria)
@@ -22,6 +22,13 @@ public class Militar
     setNumero(numero);
     setCategoria(categoria);
     setTempo(categoria);
+    this.tempoDeEspera = 0;
+  }
+
+  public Militar(int categoria, int tempo)
+  {
+    setCategoria(categoria);
+    setTempo(tempo);
     this.tempoDeEspera = 0;
   }
 
@@ -51,7 +58,7 @@ public class Militar
   }
 
   public Militar(int numero)
-  {
+  {// Se a categoria não é fornecida, o militar é um praça por padrão
     this.numero = numero;
     this.categoria = 3;
     setTempo(3);
