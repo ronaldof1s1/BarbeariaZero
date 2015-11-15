@@ -48,13 +48,20 @@ public class Fila
     return queue.size();
   }
   
-  
+  /*
+    Adiciona um militar em alguma fila, de acordo com a sua categoria
+    Se já tiver ultrapassado o limite, não adiciona
+    (Eu acho que isso deveria ser verificado ainda na classe barbearia - vou ajeitar depois)
+  */
   public void push(Militar m)
   {
     if(Barbearia.totalSize < 20)
     {
       queue.add(m);
       Barbearia.totalSize += 1;
+    }
+    else{
+      Barbearia.rejected += 1;
     }
   }
   
