@@ -63,18 +63,28 @@ public class Barbeiro implements Runnable
     {
       switch(categoria)
       {
+        /*
+            Verifica qual a categoria deve atender;
+            Se houver pessoas de sua categorias esperando, "chama" uma delas;
+            Se não, "chama" alguém de outra categoria, respeitando a prioridade;
+            Em seguida, incrementa a quantidade de pessoas atendidas;
+            Se não houver ninguém a ser atendido, aguarda
+        */
         case 1: 
           if(!Barbearia.oficiais.getQueue().isEmpty())
           {
             this.m = Barbearia.oficiais.poll();
+            Barbearia.oficiais_atendidos += 1;
           }
           else if(!Barbearia.sargentos.getQueue().isEmpty())
           {
             this.m = Barbearia.sargentos.poll();
+            Barbearia.sargentos_atendidos += 1;
           }
           else if(!Barbearia.pracas.getQueue().isEmpty())
           {
             this.m = Barbearia.pracas.poll();
+            Barbearia.pracas_atendidos += 1;
           }
           else
           {
@@ -86,14 +96,17 @@ public class Barbeiro implements Runnable
           if(!Barbearia.sargentos.getQueue().isEmpty())
           {
             this.m = Barbearia.sargentos.poll();
+            Barbearia.sargentos_atendidos += 1;
           }
           else if(!Barbearia.oficiais.getQueue().isEmpty())
           {
             this.m = Barbearia.oficiais.poll();
+            Barbearia.oficiais_atendidos += 1;
           }
           else if(!Barbearia.pracas.getQueue().isEmpty())
           {
             this.m = Barbearia.pracas.poll();
+            Barbearia.pracas_atendidos += 1;
           }
           else
           {
@@ -105,14 +118,17 @@ public class Barbeiro implements Runnable
           if(!Barbearia.pracas.getQueue().isEmpty())
           {
             this.m = Barbearia.pracas.poll();
+            Barbearia.pracas_atendidos += 1;
           }
           else if(!Barbearia.oficiais.getQueue().isEmpty())
           {
             this.m = Barbearia.oficiais.poll();
+            Barbearia.oficiais_atendidos += 1;
           }
           else if(!Barbearia.sargentos.getQueue().isEmpty())
           {
             this.m = Barbearia.sargentos.poll();
+            Barbearia.sargentos_atendidos += 1;
           }
           else
           {
