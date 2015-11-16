@@ -1,36 +1,14 @@
-
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author ronaldofs
- */
 public class Fila
 {
-  
   ConcurrentLinkedQueue<Militar> queue;
-  private int categoria;
-
-  public Fila(int categoria)
+  Patente patente;
+  
+  public Fila(Patente patente)
   {
-    this.categoria = categoria;
+    this.patente = patente;
     queue = new ConcurrentLinkedQueue<>();
-  }
-
-  public int getCategoria()
-  {
-    return categoria;
-  }
-
-  public void setCategoria(int categoria)
-  {
-    this.categoria = categoria;
   }
   
   public ConcurrentLinkedQueue<Militar> getQueue()
@@ -42,27 +20,23 @@ public class Fila
   {
     this.queue = queue;
   }
+  
+  public Patente getPatente() {
+    return patente;
+  }
 
   public int getSize()
   {
     return queue.size();
-  }
-  
+  }  
   
   public void push(Militar m)
   {
-    if(Barbearia.totalSize < 20)
-    {
-      queue.add(m);
-      Barbearia.totalSize += 1;
-    }
+    queue.add(m);
   }
   
   public Militar poll()
   {
-    Barbearia.totalSize -= 1;
     return queue.poll();
   }
-  
-  
 }
