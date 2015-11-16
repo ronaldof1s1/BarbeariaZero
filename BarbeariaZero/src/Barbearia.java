@@ -19,6 +19,7 @@ public class Barbearia
   public static int sargentos_atendidos; // Número de sargentos atendidos
   public static int pracas_atendidos; 	 // Número de praças atendidos
 
+
   public static Fila oficiais;
   public static Fila sargentos;
   public static Fila pracas;
@@ -29,7 +30,9 @@ public class Barbearia
   
   public static int input[][];
 
-  public void generate_input(){
+  public static int pausas; // Conta quantas vezes não entrou nenhum cliente na barbearia
+
+  public static void generate_input(){
 	input = new int[1000][2];
 
 	Random rand = new Random();
@@ -64,7 +67,53 @@ public class Barbearia
 	input[997][0] = 0; input[997][1] = 0;
 	input[998][0] = 0; input[998][1] = 0;
 	input[999][0] = 0; input[999][1] = 0;
-	
+
+  }
+
+  public static void output(){
+  	// Método para calcular os dados de saída do programa
+
+  }
+
+  public static void open_barbearia(){
+  	int i = 0;
+  	Random rand = new Random();
+
+  	pausas = 0;
+
+  	while(pausas < 5 && i < 1000){
+  		// Adicionar o código pra esperar um tempo tal até chamar alguém
+
+  		if (input[i][0] == 0) {
+  			pausas += 1;
+  		}
+  		else{
+  			pausas = 0; // Se entrar uma pessoa, o contador de pausas CONSECUTIVAS deve ser reiniciado
+
+  			if (totalSize < 20) { // Tem menos de 20 pessoas dentro da barbearia, o que significa que pode entrar mais gente
+
+  				switch(input[i][0]) // Seleciona em qual fila aquela nova pessoa deve entrar
+  				{
+  					case 1:
+  						oficiais.push( new Militar(input[i][0], input[i][1]) );
+  						break;
+  					case 2:
+  						sargentos.push( new Militar(input[i][0], input[i][1]) );
+  						break;
+  					case 3:
+  						pracas.push( new Militar(input[i][0], input[i][1]) );
+  						break;
+  					default:
+  						System.out.println("Categoria inválida");
+  				}
+
+  			}
+  			else {
+  				rejected += 1;
+  			}
+  		}
+  		i++;
+  	}
   }
   
   public static void main(String args[]) throws InterruptedException
@@ -76,6 +125,10 @@ public class Barbearia
     barbeiro_oficial = new Barbeiro(1);
     barbeiro_sargento = new Barbeiro(2);
     barbeiro_praca = new Barbeiro(3);
+
+    generate_input();
+
+    open_barbearia();
     
     
     System.out.println("OI");
