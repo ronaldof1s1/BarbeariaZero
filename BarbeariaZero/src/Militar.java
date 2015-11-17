@@ -1,7 +1,7 @@
 public class Militar
 {
   private int numero;
-  private int tempo;
+  private int tempoDeCorte;
   private int tempoDeEspera;
   private Patente patente;
   
@@ -43,6 +43,16 @@ public class Militar
   public void aumentaTempoDeEspera(int tempo)
   {
     this.tempoDeEspera += tempo;
+  }
+
+  public int getTempoDeCorte()
+  {
+    return tempoDeCorte;
+  }
+
+  public void setTempoDeCorte(int tempoDeCorte)
+  {
+    this.tempoDeCorte = tempoDeCorte;
   }
   
 }
