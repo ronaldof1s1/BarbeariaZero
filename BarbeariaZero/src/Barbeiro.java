@@ -1,145 +1,59 @@
-
 import java.lang.Thread;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author ronaldofs
- */
 public class Barbeiro implements Runnable
 {
-  //Categorias: 1 - Oficial, 2 - Sargento, 3 - Praça;
-  private int categoria; 
-  private Militar m;
-
-  public Barbeiro(int categoria)
-  {
-    this.categoria = categoria;
-  }
-
-  public int getCategoria()
-  {
-    return categoria;
-  }
-
-  public void setCategoria(int categoria)
-  {
-    this.categoria = categoria;
-  }
-
-  public Militar getM()
-  {
-    return m;
-  }
-
-  public void setM(Militar m)
-  {
-    this.m = m;
-  }
+  private Patente patente; 
+  private List<Fila> filas;
   
-  private void cut()
+  public Barbeiro(Patente patente, List<Fila> filas)
   {
-    try
-    {
-      Thread.sleep(m.getTempo()*100);
-      this.m = null;
-    }
-    catch (InterruptedException ex)
-    {
-      Logger.getLogger(Barbeiro.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    this.patente = patente;
+    this.filas = filas;
   }
-  
-  private void call() throws InterruptedException
-  {
-    while(true)
-    {
-      switch(categoria)
-      {
-        case 1: 
-          if(!Barbearia.oficiais.getQueue().isEmpty())
-          {
-            this.m = Barbearia.oficiais.poll();
-          }
-          else if(!Barbearia.sargentos.getQueue().isEmpty())
-          {
-            this.m = Barbearia.sargentos.poll();
-          }
-          else if(!Barbearia.pracas.getQueue().isEmpty())
-          {
-            this.m = Barbearia.pracas.poll();
-          }
-          else
-          {
-            Thread.sleep((int)Math.random() % 500);
-            continue;
-          }
-          break;
-        case 2: 
-          if(!Barbearia.sargentos.getQueue().isEmpty())
-          {
-            this.m = Barbearia.sargentos.poll();
-          }
-          else if(!Barbearia.oficiais.getQueue().isEmpty())
-          {
-            this.m = Barbearia.oficiais.poll();
-          }
-          else if(!Barbearia.pracas.getQueue().isEmpty())
-          {
-            this.m = Barbearia.pracas.poll();
-          }
-          else
-          {
-            Thread.sleep((int)Math.random() % 500);
-            continue;
-          }
-          break;
-        case 3:
-          if(!Barbearia.pracas.getQueue().isEmpty())
-          {
-            this.m = Barbearia.pracas.poll();
-          }
-          else if(!Barbearia.oficiais.getQueue().isEmpty())
-          {
-            this.m = Barbearia.oficiais.poll();
-          }
-          else if(!Barbearia.sargentos.getQueue().isEmpty())
-          {
-            this.m = Barbearia.sargentos.poll();
-          }
-          else
-          {
-            Thread.sleep((int)Math.random() % 500);
-            continue;
-          }
-          break;
-        }
-      break;
-      }
-  }
-  
+
   @Override
   public void run()
   {
-    while(true)
-    {
-      try
-      {
-        call();
+    while (true) {
+      try {
+          work();
+      } catch (InterruptedException ex) {
+          Logger.getLogger(Consumer.class.getName()).log(Level.SEVERE, null, ex);
       }
-      catch (InterruptedException ex)
-      {
-        Logger.getLogger(Barbeiro.class.getName()).log(Level.SEVERE, null, ex);
-      }
+    }
+  }
+  
+  private Fila filaProximaPatente() {
+    Fila fila = null;
+    
+    for(int i = 0; i < filas.size(); i++) {
+      fila = filas.get(i);
       
-      cut();
+      if(! fila.getQueue().isEmpty()) {
+        break;
+      }
+    }
+    
+    return fila;
+  }
+  
+  private void work() throws InterruptedException {
+    Fila fila = filas.get(patente.getCategoria() - 1);
+    
+    if (fila.getQueue().isEmpty()) {
+      fila = filaProximaPatente(); 
+    }
+
+    if(! fila.getQueue().isEmpty()) {
+      synchronized (fila) {
+        fila.poll();
+        System.out.println("Cliente indo embora da fila " + fila.getPatente().getCategoria());
+        Thread.sleep(patente.tempoCorte() * 1000);        
+        fila.notifyAll();
+      }
     }
   }
 }

@@ -1,37 +1,63 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import java.lang.Thread;
-/**
- *
- * @author ronaldofs
- */
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+
 public class Barbearia
 {
+  public static Patente oficial = new Patente(1, "Oficial", 4, 6);
+  public static Patente sargento = new Patente(2, "Sargento", 2, 4);
+  public static Patente praca = new Patente(3, "Praça", 1, 3);
   
-  public static int totalSize;
+  public static Fila fila_oficiais;
+  public static Fila fila_sargentos;
+  public static Fila fila_pracas;
   
-  public static Fila oficiais;
-  public static Fila sargentos;
-  public static Fila pracas;
   public static Barbeiro b1;
   public static Barbeiro b2;
   public static Barbeiro b3;
   
-  
-  
   public static void main(String args[]) throws InterruptedException
-  {
-    oficiais = new Fila(1);
-    sargentos = new Fila(2);
-    pracas = new Fila(3);
-    b1 = new Barbeiro(1);
-    b2 = new Barbeiro(2);
-    b3 = new Barbeiro(3);
+  {    
+    fila_oficiais = new Fila(oficial);
+    fila_sargentos = new Fila(sargento);
+    fila_pracas = new Fila(praca);
     
+    List<Fila> fila_militares = new ArrayList<Fila>();
+    fila_militares.add(fila_oficiais);
+    fila_militares.add(fila_sargentos);
+    fila_militares.add(fila_pracas);
     
-    System.out.println("OI");
+    Thread b1 = new Thread(new Barbeiro(oficial, fila_militares));
+    Thread b2 = new Thread(new Barbeiro(sargento, fila_militares));
+    Thread b3 = new Thread(new Barbeiro(praca, fila_militares));
+    
+    Militar m1 = new Militar(1, oficial);
+    Militar m2 = new Militar(2, oficial);
+    Militar m3 = new Militar(3, oficial);
+    Militar m4 = new Militar(4, sargento);
+    Militar m5 = new Militar(5, praca);
+    
+    List<Militar> militares = new ArrayList<Militar>();
+    militares.add(m1);
+    militares.add(m2);
+    militares.add(m3);
+    militares.add(m4);
+    militares.add(m5);
+    
+    Thread produtor_fila = new Thread(new ProdutorFila(4, militares, fila_militares));
+  
+    b1.start();
+    b2.start();
+    b3.start();
+    
+    produtor_fila.start();
+    
+    /*Vector sharedQueue = new Vector();
+    int size = 4;
+    Thread prodThread = new Thread(new Producer(sharedQueue, size), "Producer");
+    Thread consThread = new Thread(new Consumer(sharedQueue, size), "Consumer");
+    prodThread.start();
+    consThread.start();*/
   }
 }
