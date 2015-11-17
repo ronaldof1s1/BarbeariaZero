@@ -33,28 +33,30 @@ public class Barbearia
     for(int i = 0; i < str.size(); i++)
     {
       String s = str.get(i);
-      if(s.charAt(0) == 0)
+      System.out.println(s);
+      if(s.charAt(0) == '0')
       {
         m = new Militar(i, pausa);
         militars.add(m);
       }
-      else if(s.charAt(0) == 1)
+      else if(s.charAt(0) == '1')
       {
-        tempo = Integer.getInteger(s.substring(2));
+        tempo = Integer.parseInt(s.substring(2));
         m = new Militar(i, oficial);
         m.setTempoDeCorte(tempo);
         militars.add(m);
       }
-      else if(s.charAt(0) == 2)
+      else if(s.charAt(0) == '2')
       {
-        tempo = Integer.getInteger(s.substring(2));
+        tempo = Integer.parseInt(s.substring(2));
+                
         m = new Militar(i, sargento);
         m.setTempoDeCorte(tempo);
         militars.add(m);
       }
       else 
       {
-        tempo = Integer.getInteger(s.substring(2));
+        tempo = Integer.parseInt(s.substring(2));
         m = new Militar(i, oficial);
         m.setTempoDeCorte(tempo);
         militars.add(m);
@@ -64,7 +66,7 @@ public class Barbearia
     return militars; 
   }
   
-  public static List<String> read(String path) throws FileNotFoundException
+  public static ArrayList<String> read(String path) throws FileNotFoundException
   {
     BufferedReader br = null;
     
@@ -87,7 +89,7 @@ public class Barbearia
     return str;
   }
 
-  public static void main(String args[]) throws InterruptedException
+  public static void main(String args[]) throws InterruptedException, FileNotFoundException
   {    
     fila_oficiais = new Fila(oficial);
     fila_sargentos = new Fila(sargento);
@@ -101,21 +103,25 @@ public class Barbearia
     Thread b1 = new Thread(new Barbeiro(oficial, fila_militares));
     Thread b2 = new Thread(new Barbeiro(sargento, fila_militares));
     Thread b3 = new Thread(new Barbeiro(praca, fila_militares));
+//    
+//    Militar m1 = new Militar(1, oficial);
+//    Militar m2 = new Militar(2, oficial);
+//    Militar m3 = new Militar(3, oficial);
+//    Militar m4 = new Militar(4, sargento);
+//    Militar m5 = new Militar(5, praca);
+//    
+//    List<Militar> militares = new ArrayList<Militar>();
+//    militares.add(m1);
+//    militares.add(m2);
+//    militares.add(m3);
+//    militares.add(m4);
+//    militares.add(m5);
     
-    Militar m1 = new Militar(1, oficial);
-    Militar m2 = new Militar(2, oficial);
-    Militar m3 = new Militar(3, oficial);
-    Militar m4 = new Militar(4, sargento);
-    Militar m5 = new Militar(5, praca);
+    ArrayList<String> input = read("src/input.in");
     
-    List<Militar> militares = new ArrayList<Militar>();
-    militares.add(m1);
-    militares.add(m2);
-    militares.add(m3);
-    militares.add(m4);
-    militares.add(m5);
+    ArrayList<Militar> militars = processString(input);
     
-    Thread produtor_fila = new Thread(new ProdutorFila(20, militares, fila_militares));
+    Thread produtor_fila = new Thread(new ProdutorFila(20, militars, fila_militares));
   
     b1.start();
     b2.start();
