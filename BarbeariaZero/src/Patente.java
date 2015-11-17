@@ -12,11 +12,21 @@ public class Patente {
   private int tempoMinimo;
   private int tempoMaximo;
   
-  public Patente(int categoria, String nome, int tempoMinimo, int tempoMaximo) {
+  public Patente(int categoria, String nome) {
     this.categoria = categoria;
     this.nome = nome;
-    this.tempoMinimo = tempoMinimo;
-    this.tempoMaximo = tempoMaximo;
+    this.tempoMinimo = 1;
+    this.tempoMaximo = 3;
+    if(categoria == 1)
+    {
+      this.tempoMaximo += 3;
+      this.tempoMinimo += 3;
+    }
+    else if(categoria == 2)
+    {
+      this.tempoMaximo += 1;
+      this.tempoMinimo += 1;
+    }
   }
   
   public int getCategoria() {
