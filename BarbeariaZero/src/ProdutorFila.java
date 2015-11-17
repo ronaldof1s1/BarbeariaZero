@@ -16,11 +16,25 @@ class ProdutorFila implements Runnable {
 
   @Override
   public void run() {
+    Militar m;
     for (int i = 0; i < clientes.size(); i++) {
-      try {
-        produce(clientes.get(i), i);
-      } catch (InterruptedException ex) {
-        Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
+      m = clientes.get(i);
+      if(m.getPatente().getCategoria() != 0)
+      {
+        try {
+          produce(clientes.get(i), i);
+        } 
+        catch (InterruptedException ex) {
+          Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      }
+      try
+      {
+        Thread.sleep((long) (1 + Math.random() % 5)*100);
+      }
+      catch (InterruptedException ex)
+      {
+        Logger.getLogger(ProdutorFila.class.getName()).log(Level.SEVERE, null, ex);
       }
     }
   }
@@ -42,8 +56,7 @@ class ProdutorFila implements Runnable {
     
     while (numeroClientesAtual() == maximoClientes) {
       synchronized (fila) {
-        System.out.println("A barbearia está lotada " + Thread.currentThread().getName()
-                            + " está esperando. Tamanho: " + numeroClientesAtual());
+        System.out.println("A barbearia está lotada. Tamanho: " + numeroClientesAtual());
 
         fila.wait();
       }

@@ -10,6 +10,7 @@ public class Militar
     this.numero = numero;
     this.patente = patente;
     this.tempoDeEspera = 0;
+    this.tempoDeCorte = 0;
   }
   
   public Patente getPatente()

@@ -115,7 +115,7 @@ public class Barbearia
     militares.add(m4);
     militares.add(m5);
     
-    Thread produtor_fila = new Thread(new ProdutorFila(4, militares, fila_militares));
+    Thread produtor_fila = new Thread(new ProdutorFila(20, militares, fila_militares));
   
     b1.start();
     b2.start();
