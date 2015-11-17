@@ -23,9 +23,43 @@ public class Barbearia
   
   
   
-  public static ArrayList<Militar> processString(String str)
+  public static ArrayList<Militar> processString(ArrayList<String> str)
   {
     ArrayList<Militar> militars = new ArrayList<>();
+    Militar m;
+    int tempo;
+    
+    
+    for(int i = 0; i < str.size(); i++)
+    {
+      String s = str.get(i);
+      if(s.charAt(0) == 0)
+      {
+        m = new Militar(i, pausa);
+        militars.add(m);
+      }
+      else if(s.charAt(0) == 1)
+      {
+        tempo = Integer.getInteger(s.substring(2));
+        m = new Militar(i, oficial);
+        m.setTempoDeCorte(tempo);
+        militars.add(m);
+      }
+      else if(s.charAt(0) == 2)
+      {
+        tempo = Integer.getInteger(s.substring(2));
+        m = new Militar(i, sargento);
+        m.setTempoDeCorte(tempo);
+        militars.add(m);
+      }
+      else 
+      {
+        tempo = Integer.getInteger(s.substring(2));
+        m = new Militar(i, oficial);
+        m.setTempoDeCorte(tempo);
+        militars.add(m);
+      }
+    }
     
     return militars; 
   }
