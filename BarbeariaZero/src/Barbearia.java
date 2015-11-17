@@ -8,9 +8,10 @@ import java.util.logging.Logger;
 
 public class Barbearia
 {
-  public static Patente oficial = new Patente(1, "Oficial", 4, 6);
-  public static Patente sargento = new Patente(2, "Sargento", 2, 4);
-  public static Patente praca = new Patente(3, "Praça", 1, 3);
+  public static Patente oficial = new Patente(1, "Oficial");
+  public static Patente sargento = new Patente(2, "Sargento");
+  public static Patente praca = new Patente(3, "Praça");
+  public static Patente pausa = new Patente(0, "Pausa");
   
   public static Fila fila_oficiais;
   public static Fila fila_sargentos;
