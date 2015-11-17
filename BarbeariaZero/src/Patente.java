@@ -30,9 +30,9 @@ public class Patente {
   public int getTempoMaximo() {
     return tempoMaximo;
   }
-  
-  public int tempoCorte() {
-    Random rand = new Random();
-    return rand.nextInt((tempoMaximo - tempoMinimo) + 1) + tempoMinimo;
-  }
+//  
+//  public int tempoCorte() {
+//    Random rand = new Random();
+//    return rand.nextInt((tempoMaximo - tempoMinimo) + 1) + tempoMinimo;
+//  }
 }

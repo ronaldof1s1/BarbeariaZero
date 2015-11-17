@@ -1,7 +1,10 @@
+import java.io.*;
 import java.lang.Thread;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Barbearia
 {
@@ -17,6 +20,38 @@ public class Barbearia
   public static Barbeiro b2;
   public static Barbeiro b3;
   
+  
+  
+  public static ArrayList<Militar> processString(String str)
+  {
+    ArrayList<Militar> militars = new ArrayList<>();
+    
+    return militars; 
+  }
+  
+  public static List<String> read(String path) throws FileNotFoundException
+  {
+    BufferedReader br = null;
+    
+    br = new BufferedReader(new FileReader(path));
+    
+    ArrayList<String> str;
+    str = new ArrayList<>();
+    String line;
+    try
+    {
+      while((line = br.readLine()) !=null)
+      {
+        str.add(line);
+      }
+        }
+    catch (IOException ex)
+    {
+      Logger.getLogger(Barbearia.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return str;
+  }
+
   public static void main(String args[]) throws InterruptedException
   {    
     fila_oficiais = new Fila(oficial);
