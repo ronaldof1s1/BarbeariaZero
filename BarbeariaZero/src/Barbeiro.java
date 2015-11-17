@@ -46,13 +46,12 @@ public class Barbeiro implements Runnable
     if (fila.getQueue().isEmpty()) {
       fila = filaProximaPatente(); 
     }
-
-    if(! fila.getQueue().isEmpty()) {
-      synchronized (fila) {
+  synchronized (fila) {
+    if(! fila.getQueue().isEmpty()) {  
       Militar m = fila.poll();
       System.out.println("Cliente "+ m.getNumero() + " indo embora da fila " + fila.getPatente().getCategoria());
       Thread.sleep(m.getTempoDeCorte() * 100);        
-        fila.notifyAll();
+      fila.notifyAll();
       }
     }
   }
