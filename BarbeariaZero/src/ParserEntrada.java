@@ -42,6 +42,7 @@ public class ParserEntrada {
     Patente sargento = patentes.get(2);
     Patente praca = patentes.get(3);
     
+    int k = 0;
     for(int i = 0; i < str.size(); i++)
     {
       String s = str.get(i);
@@ -53,23 +54,26 @@ public class ParserEntrada {
       }
       else if(s.charAt(0) == '1')
       {
+        k++;
         tempo = Integer.parseInt(s.substring(2));
-        m = new Militar(i, oficial);
+        m = new Militar(k, oficial);
         m.setTempoDeCorte(tempo);
         militars.add(m);
       }
       else if(s.charAt(0) == '2')
       {
+        k++;
         tempo = Integer.parseInt(s.substring(2));
                 
-        m = new Militar(i, sargento);
+        m = new Militar(k, sargento);
         m.setTempoDeCorte(tempo);
         militars.add(m);
       }
       else 
       {
+        k++;
         tempo = Integer.parseInt(s.substring(2));
-        m = new Militar(i, praca);
+        m = new Militar(k, praca);
         m.setTempoDeCorte(tempo);
         militars.add(m);
       }

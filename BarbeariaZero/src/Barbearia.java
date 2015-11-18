@@ -20,79 +20,6 @@ public class Barbearia
   public static Barbeiro b2;
   public static Barbeiro b3;
 
-  
-  
-  
-  public static ArrayList<Militar> processString(ArrayList<String> str)
-  {
-    ArrayList<Militar> militars = new ArrayList<>();
-    Militar m;
-    int tempo;
-    
-    int k = 1;
-    for(int i = 0; i < str.size(); i++)
-    {
-
-      String s = str.get(i);
-      //System.out.println(s);
-      if(s.charAt(0) == '0')
-      {
-        m = new Militar(i, pausa);
-        militars.add(m);
-      }
-      else if(s.charAt(0) == '1')
-      {
-        tempo = Integer.parseInt(s.substring(2));
-        m = new Militar(k, oficial);
-        m.setTempoDeCorte(tempo);
-        militars.add(m);
-        k++;
-      }
-      else if(s.charAt(0) == '2')
-      {
-        tempo = Integer.parseInt(s.substring(2));
-                
-        m = new Militar(k, sargento);
-        m.setTempoDeCorte(tempo);
-        militars.add(m);
-        k++;
-      }
-      else 
-      {
-        tempo = Integer.parseInt(s.substring(2));
-        m = new Militar(k, praca);
-        m.setTempoDeCorte(tempo);
-        militars.add(m);
-        k++;
-      }
-    }
-    
-    return militars; 
-  }
-  
-  public static ArrayList<String> read(String path) throws FileNotFoundException
-  {
-    BufferedReader br = null;
-    
-    br = new BufferedReader(new FileReader(path));
-    
-    ArrayList<String> str;
-    str = new ArrayList<>();
-    String line;
-    try
-    {
-      while((line = br.readLine()) !=null)
-      {
-        str.add(line);
-      }
-        }
-    catch (IOException ex)
-    {
-      Logger.getLogger(Barbearia.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    return str;
-  }
-
   public static void main(String args[]) throws InterruptedException, FileNotFoundException
   {    
     fila_oficiais = new Fila(oficial);
@@ -114,7 +41,7 @@ public class Barbearia
     patentes.add(sargento);
     patentes.add(praca);
     
-    List<Militar> militars = ParserEntrada.getMilitares("BarbeariaZero/src/input.in", patentes);
+    List<Militar> militars = ParserEntrada.getMilitares("src/input.in", patentes);
     
 
     Thread produtor_fila = new Thread(new ProdutorFila(3, militars, fila_militares));
