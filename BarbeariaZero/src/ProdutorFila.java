@@ -27,7 +27,7 @@ class ProdutorFila implements Runnable {
           produce(clientes.get(i), i);
         } 
         catch (InterruptedException ex) {
-          Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(ProdutorFila.class.getName()).log(Level.SEVERE, null, ex);
         }
       }
       else
@@ -82,8 +82,8 @@ class ProdutorFila implements Runnable {
     //producing element and notify consumers
 //    synchronized (fila) {
       fila.push(m);
-      System.out.println("Entrou: " + m.getNumero());
-//      fila.notifyAll();
+      m.imprimir(" entrou na barbearia");
+      fila.notifyAll();
 //    }
   }
 }

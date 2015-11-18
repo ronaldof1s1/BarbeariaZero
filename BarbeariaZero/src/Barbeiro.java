@@ -21,7 +21,7 @@ public class Barbeiro implements Runnable
       try {
           work();
       } catch (InterruptedException ex) {
-          Logger.getLogger(Consumer.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(Barbeiro.class.getName()).log(Level.SEVERE, null, ex);
       }
     }
   }
@@ -46,14 +46,13 @@ public class Barbeiro implements Runnable
     while (fila.getQueue().isEmpty()) {
       fila = filaProximaPatente(); 
     }
-    synchronized (fila) {
-      if(! fila.getQueue().isEmpty()) {  
-        Militar m = fila.poll();
-        System.out.println("Cortando cliente: " + m.getNumero());
-        Thread.sleep(m.getTempoDeCorte() * 100);        
-        System.out.println("Cliente "+ m.getNumero() + " indo embora da fila "
-                           + fila.getPatente().getCategoria());
-//        fila.notifyAll();
+
+  synchronized (fila) {
+    if(! fila.getQueue().isEmpty()) {  
+      Militar m = fila.poll();
+      m.imprimir(" saiu da fila " + fila.getPatente().getCategoria());
+      Thread.sleep(m.getTempoDeCorte() * 100);        
+      fila.notifyAll();
       }
     }
   }

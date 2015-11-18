@@ -16,11 +16,6 @@ public class Fila
     return queue;
   }
   
-  public void setQueue(ConcurrentLinkedQueue<Militar> queue)
-  {
-    this.queue = queue;
-  }
-  
   public Patente getPatente() {
     return patente;
   }
