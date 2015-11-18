@@ -43,19 +43,19 @@ public class Barbeiro implements Runnable
         
         if(!fila.getQueue().isEmpty()) {
           Militar m = fila.poll();
-          Barbearia.totalClientes--;
+          Barbearia.tamanhoFila--;
           m.imprimir(" saiu da fila " + fila.getPatente().getCategoria()
               + ". \t Tamanho da fila " + fila.getPatente().getCategoria()
-              + ": " + fila.getSize() + "\t Total de clientes: " + Barbearia.totalClientes);
+              + ": " + fila.getSize() + "\t Total de clientes: " + Barbearia.tamanhoFila);
           Thread.sleep(m.getTempoDeCorte() * 1000);
         }        
       }
       else {
         Militar m = fila.poll();
-        Barbearia.totalClientes--;
+        Barbearia.tamanhoFila--;
         m.imprimir(" saiu da fila " + fila.getPatente().getCategoria()
                   + ". \t Tamanho da fila " + fila.getPatente().getCategoria()
-                  + ": " + fila.getSize() + "\t Total de clientes: " + Barbearia.totalClientes);        
+                  + ": " + fila.getSize() + "\t Total de clientes: " + Barbearia.tamanhoFila);        
         Thread.sleep(m.getTempoDeCorte() * 1000);
       }
       filas.notifyAll();

@@ -32,7 +32,9 @@ class ProdutorFila implements Runnable {
       }
       else {
         try {
-          Thread.sleep((long) (1 + Math.random() % 5) * 100);
+          long tempoEspera = (long) (1 + Math.random() % 5);
+          Estatistica.totalEsperaPausas += tempoEspera;
+          Thread.sleep(tempoEspera * 100);
         }
         catch (InterruptedException ex) {
           Logger.getLogger(ProdutorFila.class.getName()).log(Level.SEVERE, null, ex);
@@ -43,10 +45,11 @@ class ProdutorFila implements Runnable {
 
   private void produce(Militar m, int i) throws InterruptedException {
     synchronized(filas) {      
-      while(Barbearia.totalClientes == maximoClientes) {
-        System.out.println("A barbearia está lotada. \t\t\t\t\t\t\t Total de clientes: " + Barbearia.totalClientes);
+      while(Barbearia.tamanhoFila == maximoClientes) {
+        System.out.println("A barbearia está lotada. \t\t\t\t\t\t\t Total de clientes: " + Barbearia.tamanhoFila);
         clientes.add(m);
         m.imprimir("está indo para o final da fila");
+        Estatistica.totalClientesDescartados++;
         filas.wait();
       }
       
@@ -54,12 +57,12 @@ class ProdutorFila implements Runnable {
       
       fila.push(m);
       
-      Barbearia.totalClientes++;
+      Barbearia.tamanhoFila++;
       
       m.imprimir(" entrou na barbearia. \t Tamanho da fila " 
                 + fila.getPatente().getCategoria() + ": " 
                 + fila.getSize() + "\t Total de clientes: " 
-                + Barbearia.totalClientes);          
+                + Barbearia.tamanhoFila);          
       filas.notifyAll();
     }
   }

@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Barbearia
 {
+  public static int tamanhoFila = 0;
   public static int totalClientes = 0;
   
   public static Patente oficial = new Patente(1, "Oficial");
@@ -42,8 +43,11 @@ public class Barbearia
     patentes.add(praca);
     
     List<Militar> militares = ParserEntrada.getMilitares("BarbeariaZero/src/input.in", patentes);
+    totalClientes = militares.size();
     
     Thread produtor_fila = new Thread(new ProdutorFila(20, militares, fila_militares));
+    
+    Estatistica.totalClientes();
   
     b1.start();
     b2.start();

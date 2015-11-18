@@ -51,6 +51,9 @@ public class ParserEntrada {
       {
         m = new Militar(i, pausa);
         militars.add(m);
+        
+        Estatistica.totalPausas++;
+        Estatistica.totalEsperaPausas++;
       }
       else if(s.charAt(0) == '1')
       {
@@ -59,6 +62,9 @@ public class ParserEntrada {
         m = new Militar(k, oficial);
         m.setTempoDeCorte(tempo);
         militars.add(m);
+        
+        Estatistica.totalOficiais++;
+        Estatistica.totalEsperaOficiais += tempo;
       }
       else if(s.charAt(0) == '2')
       {
@@ -68,6 +74,9 @@ public class ParserEntrada {
         m = new Militar(k, sargento);
         m.setTempoDeCorte(tempo);
         militars.add(m);
+        
+        Estatistica.totalSargentos++;
+        Estatistica.totalEsperaSargentos += tempo;
       }
       else 
       {
@@ -76,6 +85,9 @@ public class ParserEntrada {
         m = new Militar(k, praca);
         m.setTempoDeCorte(tempo);
         militars.add(m);
+        
+        Estatistica.totalPracas++;
+        Estatistica.totalEsperaPracas += tempo;
       }
     }
     
