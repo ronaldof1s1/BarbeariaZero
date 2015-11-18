@@ -19,42 +19,46 @@ public class Barbeiro implements Runnable
   {
     while (true) {
       try {
-          work();
+          work(filas.get(patente.getCategoria() - 1));
       } catch (InterruptedException ex) {
           Logger.getLogger(Barbeiro.class.getName()).log(Level.SEVERE, null, ex);
       }
     }
   }
   
-  private Fila filaProximaPatente() {
-    Fila fila = null;
-    
-    for(int i = 0; i < filas.size(); i++) {
-      fila = filas.get(i);
-      
-      if(! fila.getQueue().isEmpty()) {
-        break;
-      }
-    }
-    
-    return fila;
-  }
-  
-  private void work() throws InterruptedException {
-    Fila fila = filas.get(patente.getCategoria() - 1);
-    
-    while (fila.getQueue().isEmpty()) {
-      fila = filaProximaPatente(); 
-    }
-    
-    synchronized (fila) {
-      if(! fila.getQueue().isEmpty()) {  
-        Militar m = fila.poll();
-        m.imprimir(" saiu da fila " + fila.getPatente().getCategoria());
-        Thread.sleep(m.getTempoDeCorte() * 1000);        
-        m.imprimir(" Saiu da barbearia.");
-  //      fila.notifyAll();
+  private void work(Fila fila) throws InterruptedException { 
+    synchronized (filas) {
+      if(fila.getQueue().isEmpty()) {
+        // pegar a próxima fila
+        Fila filaAux = fila;
+        
+        for(int i = 0; i < filas.size(); i++) {
+          filaAux = filas.get(i);
+          
+          if(!filaAux.getQueue().isEmpty()) {
+            fila = filaAux;
+            break;
+          }
         }
+        
+        if(!fila.getQueue().isEmpty()) {
+          Militar m = fila.poll();
+          Barbearia.totalClientes--;
+          m.imprimir(" saiu da fila " + fila.getPatente().getCategoria()
+              + ". \t Tamanho da fila " + fila.getPatente().getCategoria()
+              + ": " + fila.getSize() + "\t Total de clientes: " + Barbearia.totalClientes);
+          Thread.sleep(m.getTempoDeCorte() * 1000);
+        }        
+      }
+      else {
+        Militar m = fila.poll();
+        Barbearia.totalClientes--;
+        m.imprimir(" saiu da fila " + fila.getPatente().getCategoria()
+                  + ". \t Tamanho da fila " + fila.getPatente().getCategoria()
+                  + ": " + fila.getSize() + "\t Total de clientes: " + Barbearia.totalClientes);        
+        Thread.sleep(m.getTempoDeCorte() * 1000);
+      }
+      filas.notifyAll();
     }
   }
 }

@@ -2,11 +2,11 @@ import java.io.*;
 import java.lang.Thread;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Barbearia
 {
+  public static int totalClientes = 0;
+  
   public static Patente oficial = new Patente(1, "Oficial");
   public static Patente sargento = new Patente(2, "Sargento");
   public static Patente praca = new Patente(3, "Praça");
@@ -41,10 +41,9 @@ public class Barbearia
     patentes.add(sargento);
     patentes.add(praca);
     
-    List<Militar> militars = ParserEntrada.getMilitares("src/input.in", patentes);
+    List<Militar> militares = ParserEntrada.getMilitares("BarbeariaZero/src/input.in", patentes);
     
-
-    Thread produtor_fila = new Thread(new ProdutorFila(20, militars, fila_militares));
+    Thread produtor_fila = new Thread(new ProdutorFila(20, militares, fila_militares));
   
     b1.start();
     b2.start();
