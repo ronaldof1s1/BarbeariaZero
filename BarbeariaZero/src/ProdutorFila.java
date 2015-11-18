@@ -16,16 +16,33 @@ class ProdutorFila implements Runnable {
 
   @Override
   public void run() {
+    int contPausas = 0;
     Militar m;
     for (int i = 0; i < clientes.size(); i++) {
       m = clientes.get(i);
       if(m.getPatente().getCategoria() != 0)
       {
+        contPausas = 0;
         try {
           produce(clientes.get(i), i);
         } 
         catch (InterruptedException ex) {
           Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      }
+      else
+      {
+        contPausas++;
+        if(contPausas == 5)
+        {
+          try
+          {
+            Thread.currentThread().join();
+          }
+          catch (InterruptedException ex)
+          {
+            Logger.getLogger(ProdutorFila.class.getName()).log(Level.SEVERE, null, ex);
+          }
         }
       }
       try
@@ -42,7 +59,7 @@ class ProdutorFila implements Runnable {
   private int numeroClientesAtual()
   {
     int total = 0;
-    
+        
     for(int i = 0; i < filas.size() - 1; i++)
     {
       total += filas.get(i).getSize();
@@ -56,17 +73,17 @@ class ProdutorFila implements Runnable {
     
     while (numeroClientesAtual() == maximoClientes) {
       synchronized (fila) {
-        System.out.println("A barbearia está lotada. Tamanho: " + numeroClientesAtual());
-
-        fila.wait();
+        System.out.println("A barbearia está lotada. Volte depois, numero: " + 
+                           m.getNumero() + " Tamanho: " + numeroClientesAtual());
+//        fila.wait();
       }
     }
 
     //producing element and notify consumers
-    synchronized (fila) {
+//    synchronized (fila) {
       fila.push(m);
       System.out.println("Entrou: " + m.getNumero());
-      fila.notifyAll();
-    }
+//      fila.notifyAll();
+//    }
   }
 }

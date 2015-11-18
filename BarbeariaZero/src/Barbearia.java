@@ -29,11 +29,12 @@ public class Barbearia
     Militar m;
     int tempo;
     
-    
+    int k = 1;
     for(int i = 0; i < str.size(); i++)
     {
+
       String s = str.get(i);
-      System.out.println(s);
+      //System.out.println(s);
       if(s.charAt(0) == '0')
       {
         m = new Militar(i, pausa);
@@ -42,24 +43,27 @@ public class Barbearia
       else if(s.charAt(0) == '1')
       {
         tempo = Integer.parseInt(s.substring(2));
-        m = new Militar(i, oficial);
+        m = new Militar(k, oficial);
         m.setTempoDeCorte(tempo);
         militars.add(m);
+        k++;
       }
       else if(s.charAt(0) == '2')
       {
         tempo = Integer.parseInt(s.substring(2));
                 
-        m = new Militar(i, sargento);
+        m = new Militar(k, sargento);
         m.setTempoDeCorte(tempo);
         militars.add(m);
+        k++;
       }
       else 
       {
         tempo = Integer.parseInt(s.substring(2));
-        m = new Militar(i, oficial);
+        m = new Militar(k, praca);
         m.setTempoDeCorte(tempo);
         militars.add(m);
+        k++;
       }
     }
     
@@ -121,7 +125,7 @@ public class Barbearia
     
     ArrayList<Militar> militars = processString(input);
     
-    Thread produtor_fila = new Thread(new ProdutorFila(20, militars, fila_militares));
+    Thread produtor_fila = new Thread(new ProdutorFila(3, militars, fila_militares));
   
     b1.start();
     b2.start();

@@ -28,7 +28,6 @@ public class Militar
     if(numero >= 0)
     {
       this.numero = numero;
-
     }
     else
     {

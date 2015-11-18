@@ -43,15 +43,17 @@ public class Barbeiro implements Runnable
   private void work() throws InterruptedException {
     Fila fila = filas.get(patente.getCategoria() - 1);
     
-    if (fila.getQueue().isEmpty()) {
+    while (fila.getQueue().isEmpty()) {
       fila = filaProximaPatente(); 
     }
-  synchronized (fila) {
-    if(! fila.getQueue().isEmpty()) {  
-      Militar m = fila.poll();
-      System.out.println("Cliente "+ m.getNumero() + " indo embora da fila " + fila.getPatente().getCategoria());
-      Thread.sleep(m.getTempoDeCorte() * 100);        
-      fila.notifyAll();
+    synchronized (fila) {
+      if(! fila.getQueue().isEmpty()) {  
+        Militar m = fila.poll();
+        System.out.println("Cortando cliente: " + m.getNumero());
+        Thread.sleep(m.getTempoDeCorte() * 100);        
+        System.out.println("Cliente "+ m.getNumero() + " indo embora da fila "
+                           + fila.getPatente().getCategoria());
+//        fila.notifyAll();
       }
     }
   }

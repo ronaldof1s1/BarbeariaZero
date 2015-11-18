@@ -9,7 +9,7 @@ int main(int argc, char const *argv[])
 	o = 100;
 	s = 200;
 	p = 700;
-	int total = 1000;
+	int total = 20;
 	int contPausa = 0;
 	int num;
 	int tempo;
