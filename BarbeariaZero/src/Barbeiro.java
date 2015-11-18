@@ -49,7 +49,7 @@ public class Barbeiro implements Runnable
   synchronized (fila) {
     if(! fila.getQueue().isEmpty()) {  
       Militar m = fila.poll();
-      System.out.println("Cliente "+ m.getNumero() + " indo embora da fila " + fila.getPatente().getCategoria());
+      m.imprimir(" saiu da fila " + fila.getPatente().getCategoria());
       Thread.sleep(m.getTempoDeCorte() * 100);        
       fila.notifyAll();
       }

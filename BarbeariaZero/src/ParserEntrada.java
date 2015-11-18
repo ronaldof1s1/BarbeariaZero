@@ -79,7 +79,7 @@ public class ParserEntrada {
   }
   
   public static List<Militar> getMilitares(String diretorio, List<Patente> patentes) throws FileNotFoundException {
-    ArrayList<String> input = read("BarbeariaZero/src/input.in");
+    ArrayList<String> input = read(diretorio);
     return processString(input, patentes);
   }  
 }

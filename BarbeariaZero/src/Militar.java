@@ -56,4 +56,10 @@ public class Militar
     this.tempoDeCorte = tempoDeCorte;
   }
   
+  public void imprimir(String opcoes) {
+    System.out.println("Cliente " + numero 
+        + "\t (" + patente.getNome() 
+        + " - " + patente.getCategoria() + ")"
+        + "\t" + opcoes);
+  }
 }

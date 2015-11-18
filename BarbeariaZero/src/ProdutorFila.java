@@ -65,7 +65,7 @@ class ProdutorFila implements Runnable {
     //producing element and notify consumers
     synchronized (fila) {
       fila.push(m);
-      System.out.println("Entrou: " + m.getNumero());
+      m.imprimir(" entrou na barbearia");
       fila.notifyAll();
     }
   }
