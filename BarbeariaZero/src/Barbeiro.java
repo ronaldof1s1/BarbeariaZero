@@ -46,14 +46,15 @@ public class Barbeiro implements Runnable
     while (fila.getQueue().isEmpty()) {
       fila = filaProximaPatente(); 
     }
-
-  synchronized (fila) {
-    if(! fila.getQueue().isEmpty()) {  
-      Militar m = fila.poll();
-      m.imprimir(" saiu da fila " + fila.getPatente().getCategoria());
-      Thread.sleep(m.getTempoDeCorte() * 100);        
-      fila.notifyAll();
-      }
+    
+    synchronized (fila) {
+      if(! fila.getQueue().isEmpty()) {  
+        Militar m = fila.poll();
+        m.imprimir(" saiu da fila " + fila.getPatente().getCategoria());
+        Thread.sleep(m.getTempoDeCorte() * 1000);        
+        m.imprimir(" Saiu da barbearia.");
+  //      fila.notifyAll();
+        }
     }
   }
 }

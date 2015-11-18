@@ -71,19 +71,21 @@ class ProdutorFila implements Runnable {
   private void produce(Militar m, int i) throws InterruptedException {
     Fila fila = filas.get(m.getPatente().getCategoria() - 1);
     
-    while (numeroClientesAtual() == maximoClientes) {
+    if (numeroClientesAtual() == maximoClientes) {
       synchronized (fila) {
-        System.out.println("A barbearia está lotada. Volte depois, numero: " + 
-                           m.getNumero() + " Tamanho: " + numeroClientesAtual());
+        System.out.println("A barbearia está lotada. Volte depois, numero " + 
+                           m.getNumero() + ". Tamanho: " + numeroClientesAtual());
+        return;
 //        fila.wait();
       }
     }
 
     //producing element and notify consumers
-    synchronized (fila) {
+//    synchronized (fila) {
       fila.push(m);
       m.imprimir(" entrou na barbearia");
-      fila.notifyAll();
-    }
+      System.out.println("total na barbearia: " + numeroClientesAtual());
+//      fila.notifyAll();
+//    }
   }
 }

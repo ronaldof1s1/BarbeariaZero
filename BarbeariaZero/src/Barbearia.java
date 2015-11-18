@@ -44,7 +44,7 @@ public class Barbearia
     List<Militar> militars = ParserEntrada.getMilitares("src/input.in", patentes);
     
 
-    Thread produtor_fila = new Thread(new ProdutorFila(3, militars, fila_militares));
+    Thread produtor_fila = new Thread(new ProdutorFila(20, militars, fila_militares));
   
     b1.start();
     b2.start();
