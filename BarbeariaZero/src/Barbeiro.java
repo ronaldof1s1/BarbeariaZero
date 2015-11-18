@@ -21,7 +21,7 @@ public class Barbeiro implements Runnable
       try {
           work();
       } catch (InterruptedException ex) {
-          Logger.getLogger(Consumer.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(Barbeiro.class.getName()).log(Level.SEVERE, null, ex);
       }
     }
   }

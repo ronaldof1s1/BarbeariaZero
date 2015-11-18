@@ -25,7 +25,7 @@ class ProdutorFila implements Runnable {
           produce(clientes.get(i), i);
         } 
         catch (InterruptedException ex) {
-          Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(ProdutorFila.class.getName()).log(Level.SEVERE, null, ex);
         }
       }
       try

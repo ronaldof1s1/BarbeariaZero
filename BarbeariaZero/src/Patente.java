@@ -1,12 +1,10 @@
-import java.util.Random;
-
 public class Patente {
   
   // Categorias:
   // 1 - Oficial
   // 2 - Sargento
   // 3 - Praça
-  
+
   private int categoria;
   private String nome;
   private int tempoMinimo;
@@ -33,6 +31,10 @@ public class Patente {
     return categoria;
   }
   
+  public String getNome() {
+    return nome;
+  }
+  
   public int getTempoMinimo() {
     return tempoMinimo;
   }
@@ -40,9 +42,4 @@ public class Patente {
   public int getTempoMaximo() {
     return tempoMaximo;
   }
-//  
-//  public int tempoCorte() {
-//    Random rand = new Random();
-//    return rand.nextInt((tempoMaximo - tempoMinimo) + 1) + tempoMinimo;
-//  }
 }
